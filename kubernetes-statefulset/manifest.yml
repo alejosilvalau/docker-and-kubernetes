@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ubuntu-statefulset
+  namespace: ubuntu
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: ubuntu-statefulset
+  template:
+    metadata:
+      labels:
+        app: ubuntu-statefulset
+    spec:
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: ubuntu
+          image: ubuntu:latest
+          command:
+            - /bin/bash
+            - -c
+            - while true; do sleep 3600; done;
+          volumeMounts:
+            - name: my-pv
+              mountPath: /my-pv
+  volumeClaimTemplates:
+    - metadata:
+        name: my-pv
+      spec:
+        accessModes:
+          - 'ReadWriteOnce'
+        storageClassName: hostpath
+        resources:
+          requests:
+            storage: 10Mi
