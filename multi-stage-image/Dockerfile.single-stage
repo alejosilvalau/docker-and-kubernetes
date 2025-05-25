@@ -1,0 +1,8 @@
+FROM golang:1.21-alpine3.19
+WORKDIR /src
+COPY /src/main.go /src/main.go
+
+# Build the go application from source code
+RUN go build -o /bin/app_runner /src/main.go
+
+CMD ["/bin/app_runner"]
