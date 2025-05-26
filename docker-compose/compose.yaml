@@ -1,0 +1,11 @@
+# Define the services
+services:
+  # Define the container(s), by name
+  webapp:
+    image: 'webapp'
+    # Optionally, define the port forwarding
+    ports:
+      - '8000:5000'
+  # Define any other containers required
+  redis:
+    image: 'redis:alpine'
