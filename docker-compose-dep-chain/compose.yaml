@@ -1,0 +1,13 @@
+services:
+  postgresql:
+    image: postgresql:latest
+
+  python_app:
+    image: custom_app
+    depends_on:
+      - postgresql
+
+  nginx:
+    image: nginx/latest
+    depends_on:
+      - python_app
